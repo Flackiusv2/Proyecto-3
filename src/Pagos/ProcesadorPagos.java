@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import logica.Galeria;
+
 public class ProcesadorPagos {
 	private List<PasarelaPagos> pasarelas;
     String pasarelasFilePath="DocsPersistencia/DocsPagos/Pasarelas.txt";
@@ -55,4 +57,5 @@ public class ProcesadorPagos {
         return "Pasarela no encontrada";
 	
 	
+}
 }

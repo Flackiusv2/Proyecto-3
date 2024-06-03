@@ -16,7 +16,7 @@ public class PasarelaPayU implements PasarelaPagos{
         Random random = new Random();
 
         for (int i = 0; i < 6; i++) {
-            int digito = random.nextInt(10); // Dígitos de 0 a 9
+            int digito = random.nextInt(10);
             idGenerado.append(digito);
         }
 
