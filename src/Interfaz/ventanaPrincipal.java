@@ -3,6 +3,7 @@ import javax.swing.*;
 
 import logica.Galeria;
 import pieza.Pieza;
+import usuario.Comprador;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,9 @@ public class ventanaPrincipal extends JFrame {
     private JButton guardarGaleriaBtn;
     private JButton loginBtn;
     private JPanel galeriaPanel;
-
+    JPanel loginPanel;
+    JPanel panelRegistro;
+    panelHistorialCompras panelHistorial;
     
     private Galeria laGaleria;
 
@@ -101,49 +104,85 @@ public class ventanaPrincipal extends JFrame {
         
        
 	     // Crear un nuevo panel
-         JPanel loginPanel = new panelLogin( laGaleria );
+         loginPanel = new panelLogin( laGaleria );
 	    
 	     botonesGod loginBtn = panelBotones.getLoginBtn();
 	     loginBtn.addActionListener(new ActionListener() {
 	         @Override
 	         public void actionPerformed(ActionEvent e) {
+	        	 
 	             // Eliminar el panel de información de piezas
 	             remove(galeriaPanel);
 	             remove(panelBotones);
 	
 	             // Añadir el nuevo panel
+	             ((panelLogin) loginPanel).reset();
 	             add(loginPanel, BorderLayout.CENTER);
-	
+	             
 	             // Actualizar la ventana para mostrar los cambios
 	             revalidate();
 	             repaint();
 	         }
 	     });
 
-	  // Crear un botón de "Atrás"
-	     JButton backBtn = new JButton("Atrás");
-
-	     // Añadir un ActionListener al botón
-	     backBtn.addActionListener(new ActionListener() {
-	         @Override
-	         public void actionPerformed(ActionEvent e) {
-	             // Eliminar el panel actual
-	             remove(loginPanel);
-
-	             // Añadir el panel anterior
-	             add(galeriaPanel, BorderLayout.CENTER);
-	             add(panelBotones, BorderLayout.EAST);
-
-	             // Actualizar la ventana para mostrar los cambios
-	             revalidate();
-	             repaint();
-	         }
-	     });
-
-	     // Añadir el botón de "Atrás" al panel de inicio de sesión
-	     loginPanel.add(backBtn);
        
+	     
+	     JButton atrasLg = ((panelLogin) loginPanel).getAtras();
+	     
+			atrasLg.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// Eliminar el panel actual
+					 remove(loginPanel);
+
+		             add(galeriaPanel, BorderLayout.CENTER);
+		             add(panelBotones, BorderLayout.EAST);
+		             
+		             revalidate();
+		             repaint();
+	                
+	                
+					
+				}
+			});
+	     
+	 
+		JButton rCompra = ((panelLogin) loginPanel).getRealizarCompra();
+		
+		rCompra.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Comprador myself = ((panelLogin) loginPanel).getComprador();
+				// Eliminar el panel actual
+				remove(loginPanel);
+
+				panelRegistro = new panelRegistroCompra(laGaleria, myself,ventanaPrincipal.this);
+				add(panelRegistro, BorderLayout.CENTER);
+
+				revalidate();
+				repaint();
+			}
+		});
+		
+		JButton historial = ((panelLogin) loginPanel).getHistorialBtn();
+		
+		historial.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Comprador myself = ((panelLogin) loginPanel).getComprador();
+				// Eliminar el panel actual
+				remove(loginPanel);
+
+				panelHistorial = new panelHistorialCompras(myself, ventanaPrincipal.this);
+				add(panelHistorial, BorderLayout.CENTER);
+
+				revalidate();
+				repaint();
+			}
+		});
+			
     }
+    
     
 
 
@@ -167,7 +206,21 @@ public class ventanaPrincipal extends JFrame {
 	    ((panelPiezasInfo) galeriaPanel).getTableContainer().repaint();
 	}
 
+	public void volverMenuComprador(String menu) {
+		
+		if (menu.equals("compra")) {
+			getContentPane().remove(panelRegistro);
+		}
+		else if (menu.equals("historial")) {
+			getContentPane().remove(panelHistorial);
+		}
+		
+	    ((panelLogin) loginPanel).menuComprador();
+	    getContentPane().add(loginPanel, BorderLayout.CENTER);
 
+	    this.revalidate();
+	    this.repaint();
+	}
 
 	public static void main(String[] args) {
 		

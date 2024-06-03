@@ -16,6 +16,12 @@ public class panelLogin extends JPanel {
 	Map<String,String> MapaUsuarios;
 	private Galeria laGaleria;
 	private String userType;
+	private JButton realizarCompra;
+	private JButton atras;
+	private JLabel label;
+	private JPanel buttonPanel;
+	Comprador mySelf;
+	JButton historialCompras;
 	
 	public panelLogin(Galeria galeria) {
 		this.laGaleria = galeria;
@@ -26,18 +32,24 @@ public class panelLogin extends JPanel {
 	    setBackground(new Color(245, 245, 220)); // Color beige
 	
 	    // Crear el label
-	    JLabel label = new JLabel("<html><font size='6'>" + "Selecciona el tipo de usuario:" + "</font></html>");
+	    label = new JLabel("<html><font size='6'>" + "Selecciona el tipo de usuario:" + "</font></html>");
 	    label.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el label
 	    add(label);
 	    
 	    
 	    // Crear los botones
+	    
 	    botonesGod adminBtn = new botonesGod("Admin");
 	    botonesGod compradorBtn = new botonesGod("Comprador");
 	    botonesGod empleadoBtn = new botonesGod("Empleado");
-	
+	    
+	    //MENU DE COMPRADOR - botones
+	    realizarCompra = new JButton("Realizar compra fija");
+	    historialCompras = new JButton("Ver historial de compras");
+	    atras = new JButton("Salir");
+	   
 	    // Establecer un tamaño preferido para los botones
-	    Dimension buttonSize = new Dimension(150, 130); // Puedes ajustar estos valores según tus necesidades
+	    Dimension buttonSize = new Dimension(150, 130); 
 	    adminBtn.setPreferredSize(buttonSize);
 	    compradorBtn.setPreferredSize(buttonSize);
 	    empleadoBtn.setPreferredSize(buttonSize);
@@ -63,7 +75,7 @@ public class panelLogin extends JPanel {
 	    
 	    
 	    // Crear un panel para los botones
-	    JPanel buttonPanel = new JPanel();
+	    buttonPanel = new JPanel();
 	    buttonPanel.setPreferredSize(new Dimension(150, 200));
 	    buttonPanel.setBackground(new Color(245, 245, 220)); // Color beige
 	
@@ -79,6 +91,7 @@ public class panelLogin extends JPanel {
 	    // Añadir el panel de botones al panel principal
 	    add(Box.createRigidArea(new Dimension(0, 130))); 
 	    add(buttonPanel);
+	    
 	}
 	
 	
@@ -94,7 +107,7 @@ public class panelLogin extends JPanel {
 	    JTextField userField = new JTextField(20);
 	    userField.setMaximumSize(new Dimension(550, 60));
 	    
-
+	    
 	    JLabel passwordLabel = new JLabel("<html><font size='5'>" + "Contraseña:" + "</font></html>");
 	    JTextField passwordField = new JTextField(20);
 	    passwordField.setMaximumSize(new Dimension(500, 30));
@@ -111,7 +124,7 @@ public class panelLogin extends JPanel {
                 String password_verificacion = MapaUsuarios.get(username);
             	
         		if (password.equals(password_verificacion)) { 		
-        			Comprador mySelf = laGaleria.getControladorUsuarios().getMapaCompradores().get(username);
+        			mySelf = laGaleria.getControladorUsuarios().getMapaCompradores().get(username);
         			menuComprador();
         			
         		}else {
@@ -123,6 +136,7 @@ public class panelLogin extends JPanel {
         });
 	    
 	    
+	   
 	    // Añadir los nuevos componentes al panel
 	    constraints.gridx = 0;
 	    constraints.gridy = 0;
@@ -143,6 +157,10 @@ public class panelLogin extends JPanel {
 	    constraints.gridwidth = 2;
 	    constraints.anchor = GridBagConstraints.SOUTH;
 	    add(enterBtn, constraints);
+	    
+	    constraints.anchor = GridBagConstraints.EAST; // Alinear el componente a la esquina superior derecha
+
+	    add(atras, constraints);
 	}
 	
 	
@@ -151,43 +169,62 @@ public class panelLogin extends JPanel {
 	    removeAll();
 	    repaint();
 	    
-	    Dimension t = new Dimension(100, 300);
-	    setLayout(new GridBagLayout());
-	    GridBagConstraints gbc = new GridBagConstraints();
-	    gbc.gridwidth = GridBagConstraints.REMAINDER;
-	    gbc.fill = GridBagConstraints.NONE;
-	    gbc.anchor = GridBagConstraints.CENTER;
-	    
-	    botonesGod boton1 = new botonesGod("Realizar compra fija");
-	    boton1.setPreferredSize(t);
-	    botonesGod boton2 = new botonesGod("Ver historial de compras");
-	    boton2.setPreferredSize(t);
-	    botonesGod boton3 = new botonesGod("Ver historial de una pieza");
-	    boton3.setPreferredSize(t);
-	    botonesGod boton4 = new botonesGod("Ver historia de un artista");
-	    boton4.setPreferredSize(t);
-	    botonesGod boton5 = new botonesGod("Salir");
-	    boton5.setPreferredSize(t);
+		
+		setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.fill = GridBagConstraints.NONE;
+		gbc.anchor = GridBagConstraints.CENTER;
 
-	    // Añadir los botones al panel
-	    add(boton1, gbc);
-	    add(Box.createRigidArea(new Dimension(0, 50)));
-	    add(boton2, gbc);
-	    add(Box.createRigidArea(new Dimension(0, 50)));
-	    add(boton3, gbc);
-	    add(Box.createRigidArea(new Dimension(0, 50)));
-	    add(boton4, gbc);
-	    add(Box.createRigidArea(new Dimension(0, 50)));
-	    add(boton5, gbc);
+		
+		
+		JButton boton3 = new JButton("Ver historial de una pieza");
+		JButton boton4 = new JButton("Ver historia de un artista");
+		
 
-	    
+		add(realizarCompra, gbc);
+		add(Box.createRigidArea(new Dimension(0, 50)));
+		add(historialCompras, gbc);
+		add(Box.createRigidArea(new Dimension(0, 50)));
+		add(boton3, gbc);
+		add(Box.createRigidArea(new Dimension(0, 50)));
+		add(boton4, gbc);
+		add(Box.createRigidArea(new Dimension(0, 50)));
+		add(atras, gbc);
 
-	    // Actualizar el panel
 	    revalidate();
 	    repaint();
 		
 		
 	}
+	
+	public void reset() {
+		removeAll();
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		add(label);
+		add(Box.createRigidArea(new Dimension(0, 130))); 
+		add(buttonPanel);
+		add(atras);
+		revalidate();
+		repaint();
+	}
+	
+	
+	public JButton getAtras() {
+		return atras;
+	}
+
+	public JButton getRealizarCompra() {
+		return realizarCompra;
+	}
+	
+	public JButton getHistorialBtn() {
+		return historialCompras;
+	}
+
+	public Comprador getComprador() {
+        return mySelf;
+    }
 }
 
 

@@ -246,17 +246,17 @@ public class Galeria {
                 String Sanonimo = partes[14];
                 int precio = Integer.parseInt(partes[15]);
                 
-                if (Sdisponible == "true") {
+                if (Sdisponible.equals("true")) {
                 	disponible = true;
                 }else {
                 		disponible = false;
                 }
-                if (Sbloqueada == "true") {
+                if (Sbloqueada.equals("true")) {
                 	bloqueada = true;
                 }else {
                 		bloqueada = false;
                 }
-                if (Sanonimo == "true") {
+                if (Sanonimo.equals("true")) {
                 	anonimo = true;
                 }else {
                 		anonimo = false;
@@ -291,17 +291,17 @@ public class Galeria {
                 String Sanonimo = partes[10];
                 int precio = Integer.parseInt(partes[11]);
                 
-                if (Sdisponible == "true") {
+                if (Sdisponible.equals("true")) {
                 	disponible = true;
                 }else {
                 		disponible = false;
                 }
-                if (Sbloqueada == "true") {
+                if (Sbloqueada.equals("true")) {
                 	bloqueada = true;
                 }else {
                 		bloqueada = false;
                 }
-                if (Sanonimo == "true") {
+                if (Sanonimo.equals("true")) {
                 	anonimo = true;
                 }else {
                 		anonimo = false;
@@ -339,17 +339,17 @@ public class Galeria {
                 String Sanonimo = partes[12];
                 int precio = Integer.parseInt(partes[13]);
                 
-                if (Sdisponible == "true") {
+                if (Sdisponible.equals("true")) {
                 	disponible = true;
                 }else {
                 		disponible = false;
                 }
-                if (Sbloqueada == "true") {
+                if (Sbloqueada.equals("true")) {
                 	bloqueada = true;
                 }else {
                 		bloqueada = false;
                 }
-                if (Sanonimo == "true") {
+                if (Sanonimo.equals("true")) {
                 	anonimo = true;
                 }else {
                 		anonimo = false;
@@ -432,17 +432,17 @@ public class Galeria {
                 String Sanonimo = partes[10];
                 int precio = Integer.parseInt(partes[11]);
                 
-                if (Sdisponible == "true") {
+                if (Sdisponible.equals("true")) {
                 	disponible = true;
                 }else {
                 		disponible = false;
                 }
-                if (Sbloqueada == "true") {
+                if (Sbloqueada.equals("true")) {
                 	bloqueada = true;
                 }else {
                 		bloqueada = false;
                 }
-                if (Sanonimo == "true") {
+                if (Sanonimo.equals("true")) {
                 	anonimo = true;
                 }else {
                 		anonimo = false;
