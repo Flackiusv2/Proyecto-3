@@ -24,6 +24,7 @@ public class ventanaPrincipal extends JFrame {
     private Galeria laGaleria;
 
     public ventanaPrincipal() {
+    	
         // Configuración de la ventana
         setTitle("Galería");
         setSize(800, 700);
@@ -45,36 +46,37 @@ public class ventanaPrincipal extends JFrame {
         galeriaPanel = new panelPiezasInfo();
         add(galeriaPanel, BorderLayout.CENTER);
 
+        
+        File archivo = new File( "./datos/sustentacion" );
+        File archivoEmpleados = new File( "./datos/sustentacionempleados" );
+        try
+        {
+            Galeria GaleriaSinEmpleados = Galeria.cargarEstado( archivo );
+            laGaleria = Galeria.cargarEmpleados(archivoEmpleados, GaleriaSinEmpleados);
+        }
+        catch( NumberFormatException e1 )
+        {
+            System.out.println( "Hubo un error leyendo el archivo: hay números con un formato incorrecto" );
+            System.out.println( e1.getMessage( ) );
+            e1.printStackTrace( );
+        }
+        catch( FileNotFoundException e1 )
+        {
+            System.out.println( "No se encontró el archivo indicado" );
+            System.out.println( e1.getMessage( ) );
+            e1.printStackTrace( );
+        }
+        catch( IOException e1 )
+        {
+            System.out.println( "No se pudo leer el archivo indicado" );
+            System.out.println( e1.getMessage( ) );
+            e1.printStackTrace( );
+        }
         //METODO PARA HACER QUE CARGUEN LAS PIEZAS, Y SE MUESTREN EN EL PANEL DE PIEZAS
         botonesGod cargarGaleriaBtn = panelBotones.getCargarGaleriaBtn();
         cargarGaleriaBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	File archivo = new File( "./datos/sustentacion" );
-                File archivoEmpleados = new File( "./datos/sustentacionempleados" );
-                try
-                {
-                    Galeria GaleriaSinEmpleados = Galeria.cargarEstado( archivo );
-                    laGaleria = Galeria.cargarEmpleados(archivoEmpleados, GaleriaSinEmpleados);
-                }
-                catch( NumberFormatException e1 )
-                {
-                    System.out.println( "Hubo un error leyendo el archivo: hay números con un formato incorrecto" );
-                    System.out.println( e1.getMessage( ) );
-                    e1.printStackTrace( );
-                }
-                catch( FileNotFoundException e1 )
-                {
-                    System.out.println( "No se encontró el archivo indicado" );
-                    System.out.println( e1.getMessage( ) );
-                    e1.printStackTrace( );
-                }
-                catch( IOException e1 )
-                {
-                    System.out.println( "No se pudo leer el archivo indicado" );
-                    System.out.println( e1.getMessage( ) );
-                    e1.printStackTrace( );
-                }
                 JButton loginBtn = panelBotones.getLoginBtn();
                 JButton guardarGaleriaBtn = panelBotones.getGuardarGaleriaBtn();
                 
@@ -99,7 +101,7 @@ public class ventanaPrincipal extends JFrame {
         
        
 	     // Crear un nuevo panel
-         JPanel loginPanel = new panelLogin();
+         JPanel loginPanel = new panelLogin( laGaleria );
 	    
 	     botonesGod loginBtn = panelBotones.getLoginBtn();
 	     loginBtn.addActionListener(new ActionListener() {
@@ -146,24 +148,24 @@ public class ventanaPrincipal extends JFrame {
 
 
 
-public void actualizarGaleria() {
-    // Borrar todos los componentes existentes en tableContainer
-    ((panelPiezasInfo) galeriaPanel).getTableContainer().removeAll();
-
-    // Obtener las piezas disponibles para la venta
-    List<Pieza> piezasDisponibles = laGaleria.getInventario().getPiezasDisponibleVenta();
-
-    // Crear un modelo de tabla con las piezas disponibles
-    piezaTableModel tableModel = new piezaTableModel(piezasDisponibles);
-
-    // Crear una JTable con el modelo de tabla y añadirla a tableContainer
-    JTable table = new JTable(tableModel);
-    ((panelPiezasInfo) galeriaPanel).getTableContainer().add(new JScrollPane(table), BorderLayout.CENTER);
-
-    // Actualizar tableContainer para mostrar los nuevos componentes
-    ((panelPiezasInfo) galeriaPanel).getTableContainer().revalidate();
-    ((panelPiezasInfo) galeriaPanel).getTableContainer().repaint();
-}
+	public void actualizarGaleria() {
+	    // Borrar todos los componentes existentes en tableContainer
+	    ((panelPiezasInfo) galeriaPanel).getTableContainer().removeAll();
+	
+	    // Obtener las piezas disponibles para la venta
+	    List<Pieza> piezasDisponibles = laGaleria.getInventario().getPiezasDisponibleVenta();
+	
+	    // Crear un modelo de tabla con las piezas disponibles
+	    piezaTableModel tableModel = new piezaTableModel(piezasDisponibles);
+	
+	    // Crear una JTable con el modelo de tabla y añadirla a tableContainer
+	    JTable table = new JTable(tableModel);
+	    ((panelPiezasInfo) galeriaPanel).getTableContainer().add(new JScrollPane(table), BorderLayout.CENTER);
+	
+	    // Actualizar tableContainer para mostrar los nuevos componentes
+	    ((panelPiezasInfo) galeriaPanel).getTableContainer().revalidate();
+	    ((panelPiezasInfo) galeriaPanel).getTableContainer().repaint();
+	}
 
 
 
