@@ -9,18 +9,23 @@ import pieza.Pieza;
 
 public class Comprador extends Cliente {
     private int limiteCompras;
+    private int dinero;
     private List<Compra> misCompras;
     
 
     public Comprador(String login, String password, String nombre, String telefono, int limiteCompras, String id){
         super(login, password, nombre, telefono, id);
         this.limiteCompras = limiteCompras;
-        
+        this.dinero = limiteCompras;
         misCompras = new ArrayList<Compra>( );
     }
     public int getLimiteCompras() {
         return limiteCompras;
     }
+
+	public int getDinero() {
+		return dinero;
+	}
     public void setLimiteCompras(int limiteCompras) {
         this.limiteCompras = limiteCompras;
     }
@@ -36,6 +41,7 @@ public class Comprador extends Cliente {
         // Realiza una compra fija
         if (pieza.isDisponibleVentaValorFijo() && !pieza.isBloqueada() && this.limiteCompras >= pieza.getPrecioFijo()){
             Compra nuevaCompra = new Compra(Usuario.obtenerNuevoID(), pieza.getPrecioFijo(), "Efectivo", pieza);
+            this.dinero -= pieza.getPrecioFijo();
             this.misCompras.add(nuevaCompra);
             return  nuevaCompra;
         }else {

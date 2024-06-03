@@ -1,31 +1,55 @@
 package Interfaz;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+
+import logica.Galeria;
+import usuario.Comprador;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 public class panelLogin extends JPanel {
-
+	
+	Map<String,String> MapaUsuarios;
+	private Galeria laGaleria;
 	private String userType;
-	public panelLogin() {
+	private JButton realizarCompra;
+	private JButton atras;
+	private JLabel label;
+	private JPanel buttonPanel;
+	Comprador mySelf;
+	JButton historialCompras;
+	
+	public panelLogin(Galeria galeria) {
+		this.laGaleria = galeria;
+		if (galeria != null){
+		this.MapaUsuarios = laGaleria.getControladorUsuarios().getBaseDeDatos();}
 	    // Configurar las propiedades del JPanel
 	    setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 	    setBackground(new Color(245, 245, 220)); // Color beige
 	
 	    // Crear el label
-	    JLabel label = new JLabel("<html><font size='6'>" + "Selecciona el tipo de usuario:" + "</font></html>");
+	    label = new JLabel("<html><font size='6'>" + "Selecciona el tipo de usuario:" + "</font></html>");
 	    label.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el label
 	    add(label);
 	    
 	    
 	    // Crear los botones
+	    
 	    botonesGod adminBtn = new botonesGod("Admin");
 	    botonesGod compradorBtn = new botonesGod("Comprador");
 	    botonesGod empleadoBtn = new botonesGod("Empleado");
-	
+	    
+	    //MENU DE COMPRADOR - botones
+	    realizarCompra = new JButton("Realizar compra fija");
+	    historialCompras = new JButton("Ver historial de compras");
+	    atras = new JButton("Salir");
+	   
 	    // Establecer un tamaño preferido para los botones
-	    Dimension buttonSize = new Dimension(150, 130); // Puedes ajustar estos valores según tus necesidades
+	    Dimension buttonSize = new Dimension(150, 130); 
 	    adminBtn.setPreferredSize(buttonSize);
 	    compradorBtn.setPreferredSize(buttonSize);
 	    empleadoBtn.setPreferredSize(buttonSize);
@@ -42,7 +66,7 @@ public class panelLogin extends JPanel {
                 repaint();
 
                 // Crear los nuevos componentes
-                panelVerificar();
+                panelVerificar(userType);
 
                 // Actualizar el panel
                 revalidate();
@@ -51,7 +75,7 @@ public class panelLogin extends JPanel {
 	    
 	    
 	    // Crear un panel para los botones
-	    JPanel buttonPanel = new JPanel();
+	    buttonPanel = new JPanel();
 	    buttonPanel.setPreferredSize(new Dimension(150, 200));
 	    buttonPanel.setBackground(new Color(245, 245, 220)); // Color beige
 	
@@ -67,31 +91,140 @@ public class panelLogin extends JPanel {
 	    // Añadir el panel de botones al panel principal
 	    add(Box.createRigidArea(new Dimension(0, 130))); 
 	    add(buttonPanel);
+	    
 	}
 	
 	
-	public void panelVerificar() {
+	public void panelVerificar(String tipoUsuario) {
 		
-		JLabel userLabel = new JLabel("Usuario:");
+		setLayout(new GridBagLayout());
+	    GridBagConstraints constraints = new GridBagConstraints();
+	    constraints.anchor = GridBagConstraints.WEST;
+	    constraints.insets = new Insets(10, 10, 10, 10);
+
+	    // Crear los nuevos componentes
+	    JLabel userLabel = new JLabel("<html><font size='5'>" + "Usuario:" + "</font></html>");
 	    JTextField userField = new JTextField(20);
-	    userField.setMaximumSize(new Dimension(200, 30));
+	    userField.setMaximumSize(new Dimension(550, 60));
 	    
-	    JLabel passwordLabel = new JLabel("Contraseña:");
+	    
+	    JLabel passwordLabel = new JLabel("<html><font size='5'>" + "Contraseña:" + "</font></html>");
 	    JTextField passwordField = new JTextField(20);
-	    
-
+	    passwordField.setMaximumSize(new Dimension(500, 30));
+	
 	    botonesGod enterBtn = new botonesGod("Entrar a la galeria");
+	    enterBtn.setPreferredSize(new Dimension(140, 75));
+	    //PARA VERIFICAR EL LOGIN
+	    enterBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	String username = userField.getText();
+                String password = passwordField.getText();
+            
+                String password_verificacion = MapaUsuarios.get(username);
+            	
+        		if (password.equals(password_verificacion)) { 		
+        			mySelf = laGaleria.getControladorUsuarios().getMapaCompradores().get(username);
+        			menuComprador();
+        			
+        		}else {
+        			System.out.println("Contraseña incorrecta, intente nuevamente!");
+        		}
 
+                
+            }
+        });
+	    
+	    
+	   
 	    // Añadir los nuevos componentes al panel
-	    add(userLabel);
-	    add(userField);
-	    add(Box.createRigidArea(new Dimension(0, 150))); 
-	    add(passwordLabel);
-	    add(passwordField);
-	    add(Box.createRigidArea(new Dimension(0, 150))); 
-	    add(enterBtn);
+	    constraints.gridx = 0;
+	    constraints.gridy = 0;
+	    add(userLabel, constraints);
+
+	    constraints.gridx = 1;
+	    add(userField, constraints);
+
+	    constraints.gridx = 0;
+	    constraints.gridy = 1;
+	    add(passwordLabel, constraints);
+
+	    constraints.gridx = 1;
+	    add(passwordField, constraints);
+
+	    constraints.gridx = 0;
+	    constraints.gridy = 2;
+	    constraints.gridwidth = 2;
+	    constraints.anchor = GridBagConstraints.SOUTH;
+	    add(enterBtn, constraints);
+	    
+	    constraints.anchor = GridBagConstraints.EAST; // Alinear el componente a la esquina superior derecha
+
+	    add(atras, constraints);
 	}
 	
+	
+	public void menuComprador() {
+		// Limpiar el panel
+	    removeAll();
+	    repaint();
+	    
+		
+		setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.fill = GridBagConstraints.NONE;
+		gbc.anchor = GridBagConstraints.CENTER;
+
+		
+		
+		JButton boton3 = new JButton("Ver historial de una pieza");
+		JButton boton4 = new JButton("Ver historia de un artista");
+		
+
+		add(realizarCompra, gbc);
+		add(Box.createRigidArea(new Dimension(0, 50)));
+		add(historialCompras, gbc);
+		add(Box.createRigidArea(new Dimension(0, 50)));
+		add(boton3, gbc);
+		add(Box.createRigidArea(new Dimension(0, 50)));
+		add(boton4, gbc);
+		add(Box.createRigidArea(new Dimension(0, 50)));
+		add(atras, gbc);
+
+	    revalidate();
+	    repaint();
+		
+		
+	}
+	
+	public void reset() {
+		removeAll();
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		add(label);
+		add(Box.createRigidArea(new Dimension(0, 130))); 
+		add(buttonPanel);
+		add(atras);
+		revalidate();
+		repaint();
+	}
+	
+	
+	public JButton getAtras() {
+		return atras;
+	}
+
+	public JButton getRealizarCompra() {
+		return realizarCompra;
+	}
+	
+	public JButton getHistorialBtn() {
+		return historialCompras;
+	}
+
+	public Comprador getComprador() {
+        return mySelf;
+    }
 }
 
 
