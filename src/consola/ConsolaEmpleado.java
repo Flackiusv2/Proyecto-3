@@ -1,11 +1,15 @@
 package consola;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import logica.Galeria;
 import pieza.Pieza;
 import usuario.Cajero;
 import usuario.Empleado;
+import Pagos.ProcesadorPagos;
 
 
 public class ConsolaEmpleado extends ConsolaBasica {
@@ -19,6 +23,7 @@ public class ConsolaEmpleado extends ConsolaBasica {
 	private Galeria laGaleria;
 	List<Pieza> piezasDisponibles;
 	List<Pieza> piezasPasadas; 
+	private ProcesadorPagos  controladorPagos = new ProcesadorPagos();
 	public ConsolaEmpleado ( Galeria galeria, String rol1, Empleado empleado )
     {
         this.laGaleria = galeria;
@@ -51,7 +56,19 @@ public class ConsolaEmpleado extends ConsolaBasica {
             int opcionSeleccionada = mostrarMenu( "Menu de la Galeria", opcionesCajero);
             if( opcionSeleccionada == 1 )
             {	
-            	System.out.println("El estado de registro del pago de la compra con id 311589 por el comprador con el id 547293 es: Exitosa!");
+            	String opcion = pedirCadenaAlUsuario( "Escoja la opción deseada(1 para efectivo, 2 para tarjeta)" );
+                int opcionS = Integer.parseInt( opcion );
+                if (opcionS == 1) {
+                	System.out.println("El estado de registro del pago de la compra con id 311589 por el comprador con el id 547293 es: Exitosa!");
+                }
+                else if(opcionS == 2) {
+                	String PasarelaElegida = pedirCadenaAlUsuario("ingrese la pasarela de Pago");
+                	String resultado = controladorPagos.procesarPagoTraza(PasarelaElegida, "547293", "8434367102943048 ", 20000, "548", laGaleria);
+                	System.out.println(resultado);
+                }
+                
+
+            	
                 
             }
             else if( opcionSeleccionada == 2 )
