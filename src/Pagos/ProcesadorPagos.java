@@ -9,7 +9,7 @@ import logica.Galeria;
 
 public class ProcesadorPagos {
 	private List<PasarelaPagos> pasarelas;
-    String pasarelasFilePath="DocsPersistencia/DocsPagos/Pasarelas.txt";
+    String pasarelasFilePath="datos/Pasarelas.txt";
 
     public ProcesadorPagos() {
         pasarelas = new ArrayList<>();
@@ -41,10 +41,10 @@ public class ProcesadorPagos {
         }
     }
 
-    public String procesarPagoTraza(String pasarela, String idComprador, String numeroTarjeta, int monto, String pin, Galeria galeria) {
+    public String procesarPagoTraza(String pasarela, String usuario, String numeroTarjeta, int monto, String pin, Galeria galeria) {
         for (PasarelaPagos tipo : pasarelas) {
             if (tipo.getClass().getSimpleName().equals(pasarela)) {
-                boolean respuesta=tipo.RealizarTraza(idComprador, numeroTarjeta, monto, pin, galeria);
+                boolean respuesta=tipo.RealizarTraza(usuario, numeroTarjeta, monto, pin, galeria);
                 if (respuesta){
                     return "La transacción con la tarjeta numero: "+numeroTarjeta+", fue Aprobada, ya puede ver la traza de la transacción en el archivo correspondiente";
                 }

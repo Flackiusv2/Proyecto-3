@@ -24,8 +24,8 @@ public class PasarelaPayU implements PasarelaPagos{
     }
 
     @Override
-    public boolean procesarPago(String idComprador, String numeroTarjeta, int monto, String pin, Galeria galeria) {
-        Comprador comprador=  galeria.getControladorUsuarios().getMapaCompradores().get(idComprador);
+    public boolean procesarPago(String usuario, String numeroTarjeta, int monto, String pin, Galeria galeria) {
+        Comprador comprador=  galeria.getControladorUsuarios().getMapaCompradores().get(usuario);
         int credito =comprador.getLimiteCompras();
          if (comprador!= null && credito>= monto && numeroTarjeta.length()==16 && pin.length()==3){
             return true;
@@ -35,18 +35,18 @@ public class PasarelaPayU implements PasarelaPagos{
     }
 
     @Override
-    public boolean RealizarTraza(String idComprador, String numeroTarjeta, int monto, String pin, Galeria galeria) {
+    public boolean RealizarTraza(String usuario, String numeroTarjeta, int monto, String pin, Galeria galeria) {
         String nT=obtenerNuevoIdTransaccionPayU(); 
         String resultado= "";
         String nombreComprador="";
-        boolean bool=procesarPago( idComprador,  numeroTarjeta,  monto,  pin,  galeria);
+        boolean bool=procesarPago( usuario,  numeroTarjeta,  monto,  pin,  galeria);
         Date fechaActual = new Date();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy GGG hh:mm aaa");
         String fechaString = formatoFecha.format(fechaActual);
 
        
         if (bool){
-            Comprador comprador=  galeria.getControladorUsuarios().getMapaCompradores().get(idComprador);
+            Comprador comprador=  galeria.getControladorUsuarios().getMapaCompradores().get(usuario);
             resultado="Aprobada";
             nombreComprador= comprador.getNombre();
         }
@@ -56,7 +56,7 @@ public class PasarelaPayU implements PasarelaPagos{
         }   
             
     
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter("DocsPersistencia/DocsPagos/PayUTraza.txt" , true))) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("datos/PayUtransacc.txt" , true))) {
         writer.write("Fecha: "+fechaString+" | Numero de Transacción: "+nT+" | Nombre Comprador: " + nombreComprador + " | Tarjeta: " + numeroTarjeta + " | Monto: " + monto + " | Resultado: " + resultado + "\n");
     } catch (IOException e) {
         e.printStackTrace();
