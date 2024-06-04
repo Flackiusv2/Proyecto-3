@@ -9,7 +9,7 @@ import logica.Galeria;
 
 public class ProcesadorPagos {
 	private List<PasarelaPagos> pasarelas;
-    String pasarelasFilePath="DocsPersistencia/DocsPagos/Pasarelas.txt";
+    String pasarelasFilePath="Datos/Pasarelas.txt";
 
     public ProcesadorPagos() {
         pasarelas = new ArrayList<>();

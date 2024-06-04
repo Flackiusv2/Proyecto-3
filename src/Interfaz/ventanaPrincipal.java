@@ -24,6 +24,7 @@ public class ventanaPrincipal extends JFrame {
     JPanel panelRegistro;
     panelHistorialCompras panelHistorial;
     panelPiezaHistorial panelPiezaHistorial;
+    panelArtistaHistorial panelArtistaHistorial;
     
     private Galeria laGaleria;
 
@@ -198,6 +199,20 @@ public class ventanaPrincipal extends JFrame {
 				repaint();
 			}
 		});
+		JButton verHartista = ((panelLogin) loginPanel).getVerHartista();
+		
+		verHartista.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {	
+				remove(loginPanel);
+				
+				panelArtistaHistorial = new panelArtistaHistorial(laGaleria,ventanaPrincipal.this);
+				add(panelArtistaHistorial);
+
+				revalidate();
+				repaint();
+			}
+		});
 		
 			
     }
@@ -235,6 +250,9 @@ public class ventanaPrincipal extends JFrame {
 		}
 		else if (menu.equals("pieza")) {
 			getContentPane().remove(panelPiezaHistorial);
+		}
+		else if (menu.equals("artista")) {
+			getContentPane().remove(panelArtistaHistorial);
 		}
 		
 	    ((panelLogin) loginPanel).menuComprador();

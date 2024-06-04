@@ -72,21 +72,36 @@ public class panelRegistroCompra extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Pieza piezaSeleccionada = listaPiezas.getSelectedValue();
                 if (piezaSeleccionada != null) {
-                	String nombre = piezaSeleccionada.getTitulo();
-                	Compra nuevaCompra = myself.realizarCompraFija(piezaSeleccionada); 
-            	    if (nuevaCompra == null){
-            	        JOptionPane.showMessageDialog(null, "Compra no exitosa, probablemente no tengas suficiente dinero!");
-            	    }else {
-            	    
-            	    laGaleria.agregarCompra(nuevaCompra,  myself);
-            	    laGaleria.getInventario().realizarCompra(piezaSeleccionada);
-            	    JOptionPane.showMessageDialog(null, "Compra existosa!");
-            	    actualizarDinero(); 
-            	    ((DefaultListModel<Pieza>) listaPiezas.getModel()).removeElement(piezaSeleccionada);
-                    
-            	    }
+                	int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea pagar con tarjeta de crédito?", "Confirmación de pago", JOptionPane.YES_NO_OPTION);
+                    if (respuesta == JOptionPane.YES_OPTION) {
+                    	String parcelas = JOptionPane.showInputDialog("Ingrese su parcela de pago:");
+                        String tarjeta = JOptionPane.showInputDialog("Ingrese la información de la tarjeta:");
+                        // Aquí puedes agregar la lógica para procesar el pago con tarjeta de crédito
+                        // ...
+                        Compra nuevaCompra = myself.realizarCompraFija(piezaSeleccionada);
+                        if (nuevaCompra == null){
+                            JOptionPane.showMessageDialog(null, "Compra no exitosa, probablemente no tengas suficiente dinero!");
+                        } else {
+                            laGaleria.agregarCompra(nuevaCompra,  myself);
+                            laGaleria.getInventario().realizarCompra(piezaSeleccionada);
+                            JOptionPane.showMessageDialog(null, "Compra existosa!");
+                            actualizarDinero(); 
+                            ((DefaultListModel<Pieza>) listaPiezas.getModel()).removeElement(piezaSeleccionada);
+                        }
+                    } else {
+                        Compra nuevaCompra = myself.realizarCompraFija(piezaSeleccionada);
+                        if (nuevaCompra == null){
+                            JOptionPane.showMessageDialog(null, "Compra no exitosa, probablemente no tengas suficiente dinero!");
+                        } else {
+                            laGaleria.agregarCompra(nuevaCompra,  myself);
+                            laGaleria.getInventario().realizarCompra(piezaSeleccionada);
+                            JOptionPane.showMessageDialog(null, "Compra existosa!");
+                            actualizarDinero(); 
+                            ((DefaultListModel<Pieza>) listaPiezas.getModel()).removeElement(piezaSeleccionada);
+                        }
+                      }
                 }
-            }
+           }
         });
         
         back = new JButton("Atras");

@@ -56,7 +56,7 @@ public class PasarelaPayU implements PasarelaPagos{
         }   
             
     
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter("DocsPersistencia/DocsPagos/PayUTraza.txt" , true))) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("Datos//PayUTraza.txt" , true))) {
         writer.write("Fecha: "+fechaString+" | Numero de Transacción: "+nT+" | Nombre Comprador: " + nombreComprador + " | Tarjeta: " + numeroTarjeta + " | Monto: " + monto + " | Resultado: " + resultado + "\n");
     } catch (IOException e) {
         e.printStackTrace();

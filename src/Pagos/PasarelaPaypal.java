@@ -54,7 +54,7 @@ public class PasarelaPaypal implements PasarelaPagos{
             nombreComprador= "N/A";
         } 
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("DocsPersistencia/DocsPagos/PayPalTraza.txt" , true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Datos/PayPalTraza.txt" , true))) {
             writer.write("Fecha: "+fechaString+" | Numero de Transacción: "+nT+" | Nombre Comprador: " + nombreComprador + " | Tarjeta: " + numeroTarjeta + " | Monto: " + monto + " | Resultado: " + resultado + "\n");
         } catch (IOException e) {
             e.printStackTrace();
