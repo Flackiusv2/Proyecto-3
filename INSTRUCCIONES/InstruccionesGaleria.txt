@@ -1,0 +1,26 @@
+Instructivo para el Uso del Programa de Galería
+1. Cargar Galería
+Para visualizar las piezas disponibles, presione el botón "Cargar Galería".
+
+2. Iniciar Sesión
+Haga clic en el botón "Iniciar Sesión".
+Seleccione el tipo de usuario.
+Ingrese su nombre de usuario y contraseña.
+3. Navegar en la Galería
+Una vez iniciada la sesión, podrá acceder a las opciones disponibles dentro de la galería según el tipo de usuario seleccionado.
+
+4. Comprar una Pieza
+Para realizar la compra de una pieza, siga los siguientes pasos:
+
+Ingrese al menú.
+Seleccione la pieza deseada con un clic.
+Presione el botón "Comprar".
+Decida si desea pagar con tarjeta de crédito o no.
+
+5. Pago con Tarjeta de Crédito
+Si elige pagar con tarjeta de crédito, siga estos pasos:
+
+Seleccione la pasarela de pago (Paypal o PayU).
+Ingrese un número de tarjeta válido que contenga más de 10 dígitos.
+6. Historial de Compras
+Después de completar la compra, podrá ver los artículos adquiridos en su historial de compras.
