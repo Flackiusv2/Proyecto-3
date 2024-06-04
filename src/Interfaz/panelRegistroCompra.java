@@ -1,6 +1,8 @@
 package Interfaz;
 import javax.swing.*;
 
+import Pagos.PasarelaPayU;
+import Pagos.PasarelaPaypal;
 import logica.Compra;
 import logica.Galeria;
 import pieza.Pieza;
@@ -74,10 +76,19 @@ public class panelRegistroCompra extends JPanel {
                 if (piezaSeleccionada != null) {
                 	int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea pagar con tarjeta de crédito?", "Confirmación de pago", JOptionPane.YES_NO_OPTION);
                     if (respuesta == JOptionPane.YES_OPTION) {
-                    	String parcelas = JOptionPane.showInputDialog("Ingrese su parcela de pago:");
-                        String tarjeta = JOptionPane.showInputDialog("Ingrese la información de la tarjeta:");
-                        // Aquí puedes agregar la lógica para procesar el pago con tarjeta de crédito
-                        // ...
+                    	String parcela = JOptionPane.showInputDialog("Ingrese su parcela de pago:");
+                    	String tarjeta = JOptionPane.showInputDialog("Ingrese la información de la tarjeta:");
+                        if (parcela.equals("Paypal")) {
+                        	PasarelaPaypal paypal = new PasarelaPaypal();
+                        	paypal.RealizarTraza(myself.getLogin(),tarjeta, piezaSeleccionada.getPrecioFijo(), laGaleria );
+                        }else if (parcela.equals("PayU")) {
+                        	PasarelaPayU PayU = new PasarelaPayU();
+                        	PayU.RealizarTraza(myself.getLogin(),tarjeta, piezaSeleccionada.getPrecioFijo(), laGaleria );
+						} else {
+							JOptionPane.showMessageDialog(null, "Parcela de pago no válida!");
+							return;
+						}
+                       
                         Compra nuevaCompra = myself.realizarCompraFija(piezaSeleccionada);
                         if (nuevaCompra == null){
                             JOptionPane.showMessageDialog(null, "Compra no exitosa, probablemente no tengas suficiente dinero!");

@@ -24,10 +24,10 @@ public class PasarelaPayU implements PasarelaPagos{
     }
 
     @Override
-    public boolean procesarPago(String idComprador, String numeroTarjeta, int monto, String pin, Galeria galeria) {
-        Comprador comprador=  galeria.getControladorUsuarios().getMapaCompradores().get(idComprador);
-        int credito =comprador.getLimiteCompras();
-         if (comprador!= null && credito>= monto && numeroTarjeta.length()==16 && pin.length()==3){
+    public boolean procesarPago(String idComprador, String numeroTarjeta, int monto,  Galeria galeria) {
+    	Comprador comprador=  galeria.getControladorUsuarios().getMapaCompradores().get(idComprador);
+        int dinero  =  comprador.getDinero();
+         if (comprador!= null && dinero >= monto && numeroTarjeta.length()>10){
             return true;
          }
 
@@ -35,11 +35,11 @@ public class PasarelaPayU implements PasarelaPagos{
     }
 
     @Override
-    public boolean RealizarTraza(String idComprador, String numeroTarjeta, int monto, String pin, Galeria galeria) {
+    public boolean RealizarTraza(String idComprador, String numeroTarjeta, int monto, Galeria galeria) {
         String nT=obtenerNuevoIdTransaccionPayU(); 
         String resultado= "";
         String nombreComprador="";
-        boolean bool=procesarPago( idComprador,  numeroTarjeta,  monto,  pin,  galeria);
+        boolean bool=procesarPago( idComprador,  numeroTarjeta,  monto,  galeria);
         Date fechaActual = new Date();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy GGG hh:mm aaa");
         String fechaString = formatoFecha.format(fechaActual);
