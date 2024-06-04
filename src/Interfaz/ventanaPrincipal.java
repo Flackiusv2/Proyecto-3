@@ -120,8 +120,7 @@ public class ventanaPrincipal extends JFrame {
 	             // Añadir el nuevo panel
 	             ((panelLogin) loginPanel).reset();
 	             add(loginPanel, BorderLayout.CENTER);
-	             
-	             // Actualizar la ventana para mostrar los cambios
+	      
 	             revalidate();
 	             repaint();
 	         }
