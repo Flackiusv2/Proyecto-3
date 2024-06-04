@@ -113,7 +113,7 @@ public class panelLogin extends JPanel {
 	    
 	    
 	    JLabel passwordLabel = new JLabel("<html><font size='5'>" + "Contraseña:" + "</font></html>");
-	    JTextField passwordField = new JTextField(20);
+	    JPasswordField passwordField = new JPasswordField(20);
 	    passwordField.setMaximumSize(new Dimension(500, 30));
 	
 	    botonesGod enterBtn = new botonesGod("Entrar a la galeria");
@@ -123,8 +123,8 @@ public class panelLogin extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
             	String username = userField.getText();
-                String password = passwordField.getText();
-            
+            	String password = new String(passwordField.getPassword());
+
                 String password_verificacion = MapaUsuarios.get(username);
             	
         		if (password.equals(password_verificacion)) { 		

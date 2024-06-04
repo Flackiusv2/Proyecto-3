@@ -227,7 +227,6 @@ public class ventanaPrincipal extends JFrame {
 	
 	    // Obtener las piezas disponibles para la venta
 	    List<Pieza> piezasDisponibles = laGaleria.getInventario().getPiezasDisponibleVenta();
-	
 	    // Crear un modelo de tabla con las piezas disponibles
 	    piezaTableModel tableModel = new piezaTableModel(piezasDisponibles);
 	
