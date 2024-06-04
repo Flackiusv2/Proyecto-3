@@ -58,7 +58,16 @@ public abstract class Pieza {
     public void agregarDueño(Comprador cl) {
     	dueños.add(cl);
     }
-
+    
+	public List<Cliente> getDueños() {
+		return dueños;
+	}
+	
+	public boolean isVendida() {
+		return vendida;
+	}
+	
+	
     public void seVendio(String fecha) {
     	vendida = true;
     	fechaVenta = fecha;

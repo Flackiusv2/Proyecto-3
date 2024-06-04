@@ -16,7 +16,7 @@ public class panelRegistroCompra extends JPanel {
 	private Galeria laGaleria;
 	Comprador myself;
 	List<Pieza> piezasDisponibles; 
-	List<Pieza> piezasPasadas; 
+	
 	private JList<Pieza> listaPiezas;
     private JButton botonCompra;
     private int dinero;
@@ -32,7 +32,7 @@ public class panelRegistroCompra extends JPanel {
         this.laGaleria = galeria;
         this.myself = yo;
     	this.piezasDisponibles = laGaleria.getInventario().getPiezasDisponibleVenta();
-    	this.piezasPasadas = laGaleria.getInventario().getPiezasPasadas();
+    	
     	
     	dinero = myself.getDinero();
     	

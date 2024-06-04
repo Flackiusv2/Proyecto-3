@@ -22,6 +22,8 @@ public class panelLogin extends JPanel {
 	private JPanel buttonPanel;
 	Comprador mySelf;
 	JButton historialCompras;
+	JButton verHpieza;
+	JButton verHartista;
 	
 	public panelLogin(Galeria galeria) {
 		this.laGaleria = galeria;
@@ -46,6 +48,8 @@ public class panelLogin extends JPanel {
 	    //MENU DE COMPRADOR - botones
 	    realizarCompra = new JButton("Realizar compra fija");
 	    historialCompras = new JButton("Ver historial de compras");
+	    verHpieza = new JButton("Ver historial de una pieza");
+		verHartista = new JButton("Ver historia de un artista");
 	    atras = new JButton("Salir");
 	   
 	    // Establecer un tamaño preferido para los botones
@@ -177,18 +181,13 @@ public class panelLogin extends JPanel {
 		gbc.anchor = GridBagConstraints.CENTER;
 
 		
-		
-		JButton boton3 = new JButton("Ver historial de una pieza");
-		JButton boton4 = new JButton("Ver historia de un artista");
-		
-
 		add(realizarCompra, gbc);
 		add(Box.createRigidArea(new Dimension(0, 50)));
 		add(historialCompras, gbc);
 		add(Box.createRigidArea(new Dimension(0, 50)));
-		add(boton3, gbc);
+		add(verHpieza, gbc);
 		add(Box.createRigidArea(new Dimension(0, 50)));
-		add(boton4, gbc);
+		add(verHartista, gbc);
 		add(Box.createRigidArea(new Dimension(0, 50)));
 		add(atras, gbc);
 
@@ -225,6 +224,15 @@ public class panelLogin extends JPanel {
 	public Comprador getComprador() {
         return mySelf;
     }
+	
+	public JButton getVerHpieza() {
+		return verHpieza;
+	}
+
+	public JButton getVerHartista() {
+		return verHartista;
+	}
+	
 }
 
 
