@@ -97,6 +97,7 @@ public class panelRegistroCompra extends JPanel {
                             laGaleria.getInventario().realizarCompra(piezaSeleccionada);
                             JOptionPane.showMessageDialog(null, "Compra existosa!");
                             actualizarDinero(); 
+         
                             ((DefaultListModel<Pieza>) listaPiezas.getModel()).removeElement(piezaSeleccionada);
                         }
                     } else {

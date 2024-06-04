@@ -1,6 +1,8 @@
 package pieza;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -68,9 +70,12 @@ public abstract class Pieza {
 	}
 	
 	
-    public void seVendio(String fecha) {
+    public void seVendio() {
+    	Date fechaActual = new Date();
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy GGG hh:mm aaa");
+        String fechaString = formatoFecha.format(fechaActual);
+        fechaVenta = fechaString;
     	vendida = true;
-    	fechaVenta = fecha;
     }
     
     public String getFechaVenta() {

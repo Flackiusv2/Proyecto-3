@@ -87,7 +87,7 @@ public class Galeria {
 
     public void agregarCompra(Compra compra, Comprador compa){
     	compra.getPieza().agregarDueño(compa);
-    	compra.getPieza().seVendio("2024/05/21");
+    	compra.getPieza().seVendio();
         this.compras.put(compra.getId(), compra);
         
     }

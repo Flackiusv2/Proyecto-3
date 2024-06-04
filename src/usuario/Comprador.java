@@ -39,7 +39,7 @@ public class Comprador extends Cliente {
     }
     public Compra realizarCompraFija(Pieza pieza){
         // Realiza una compra fija
-        if (pieza.isDisponibleVentaValorFijo() && !pieza.isBloqueada() && this.limiteCompras >= pieza.getPrecioFijo()){
+        if (pieza.isDisponibleVentaValorFijo() && !pieza.isBloqueada() && this.dinero >= pieza.getPrecioFijo()){
             Compra nuevaCompra = new Compra(Usuario.obtenerNuevoID(), pieza.getPrecioFijo(), "Efectivo", pieza);
             this.dinero -= pieza.getPrecioFijo();
             this.misCompras.add(nuevaCompra);
